@@ -1,0 +1,28 @@
+{
+    "name": "Posto Texaco",
+    "description": "Muitas coisas",
+    "category": "moto",
+    "logoType": "image/png",
+    "offers": [
+        {
+            "description": "Gasolina 5% de desconto",
+            "requiredPoints": 2000,
+            "value": "5%"
+        },
+        {
+            "description": "-10% Gasolina Aditivada",
+            "requiredPoints": 4000,
+            "value": "10%"
+        },
+        {
+            "description": "-50% Etanol",
+            "requiredPoints": 50000,
+            "value": "50%"
+        },
+        {
+            "description": "Guaraná Grátis",
+            "requiredPoints": 500,
+            "value": "R$0"
+        }
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "name": "Posto Petrobras",
+    "description": "Óleos, Limpeza, Combustível e mais!",
+    "category": "moto",
+    "logoType": "image/png",
+    "offers": [
+        {
+            "description": "Gasolina 5% de desconto",
+            "requiredPoints": 2000,
+            "value": "5%"
+        },
+        {
+            "description": "-10% Gasolina Aditivada",
+            "requiredPoints": 4000,
+            "value": "10%"
+        },
+        {
+            "description": "Troca de óleo por R$9 nos postos BR",
+            "requiredPoints": 2500,
+            "value": "R$9"
+        }
+    ]
+}
