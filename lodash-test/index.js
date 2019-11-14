@@ -28,10 +28,10 @@ async function getUser() {
 }
 
 async function getMatchedUsers(userInput){
-    const preferences = userInput.Item.preferences
+    const {preferences, id} = userInput.Item
     let filter = "id <> :id AND ( "
     let attributes = {
-        ":id" : userInput.Item.id
+        ":id" : id
     }
     
     for (i=0; i < preferences.length; i++) {
@@ -48,11 +48,33 @@ async function getMatchedUsers(userInput){
         ExpressionAttributeValues: attributes
     }
     const {Items} = await db.scan(params)
-    for(const item of Items){
-        let equal = _.intersectionWith(preferences, item.preferences, _.isEqual);
-        const percentage = Math.floor((equal.length / preferences.length) * 100) + '%'
-        console.log("UserId: " + item.id)
-        console.log("Porcentagem de match: " + percentage)
-        console.log("-----")
+
+    var userData = {
+        id: id,
+        MatchedUsers:[]
     }
+    
+    for (const item of Items) {
+        currentUser = {}
+        const percentual = getMatchPercentual(preferences, item.preferences)
+        // console.info(`User: ${id} matches ${percentual}% with user: ${item.id}`)
+        
+        currentUser = {
+            id: item.id,
+            percentual: percentual
+        }
+        userData.MatchedUsers.push(currentUser)
+    }
+    console.log(userData)
+    insertMatchedUsers(userData)
+}
+
+function getMatchPercentual(userPreferences, currentUserPreferences) {
+    const equal = _.intersectionWith(userPreferences, currentUserPreferences, _.isEqual)
+    return Math.floor((equal.length / userPreferences.length) * 100)
+}
+
+function insertMatchedUsers(userData){
+    const db = new Dynamo('dev-user-profile')
+    db.insert(userData)
 }
